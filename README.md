@@ -3,8 +3,18 @@ pg_repack Cookbook
 
 This cookbook installs the pg_repack postgres extension from github
 
-## Attributes
+## Depends
 
+* [paths](https://github.com/bixu/paths)
+* Postgres already being installed in `$PATH`
+
+
+## Usage
+
+Add the `pg_repack::default` recipe to a node.
+
+This recipe depends on the `pg_config` binary existing in the PATH as
+defined by `node['paths']['bin_path']`.
 
 
 ## Contributing
