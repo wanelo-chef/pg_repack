@@ -16,10 +16,12 @@ execute 'make pg_repack' do
   cwd helper.tarball_source_directory
   command 'make'
   environment 'PATH' => node['paths']['bin_path']
+  not_if { ::File.exist?(helper.pg_repack_binary) }
 end
 
-execute 'make inttall pg_repack' do
+execute 'make install pg_repack' do
   cwd helper.tarball_source_directory
   command 'make install'
   environment 'PATH' => node['paths']['bin_path']
+  not_if { ::File.exist?(helper.pg_repack_binary) }
 end

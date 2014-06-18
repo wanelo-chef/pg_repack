@@ -1,9 +1,21 @@
+require 'chef/mixin/shell_out'
+
 module PgRepack
   class Helper
+    include Chef::Mixin::ShellOut
+
     attr_reader :node
 
     def initialize(node)
       @node = node
+    end
+
+    def pg_repack_binary
+      File.join postgres_bindir, 'pg_repack'
+    end
+
+    def postgres_bindir
+      shell_out!('pg_config --bindir').stdout.strip
     end
 
     def local_tarball

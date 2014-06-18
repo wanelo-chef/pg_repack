@@ -11,6 +11,21 @@ describe PgRepack::Helper do
     }
   } }
 
+  describe '#postgres_bindir' do
+    it 'shells out to pg_config' do
+      allow(helper).to receive(:shell_out!).and_return(double(stdout:"/path/to/pg/bin\n"))
+      expect(helper.postgres_bindir).to eq('/path/to/pg/bin')
+      expect(helper).to have_received(:shell_out!).with('pg_config --bindir')
+    end
+  end
+
+  describe '#pg_repack_binary' do
+    it 'is pg_repack in the postgres_bindir' do
+      allow(helper).to receive(:postgres_bindir).and_return('/p/to/pg/bin')
+      expect(helper.pg_repack_binary).to eq('/p/to/pg/bin/pg_repack')
+    end
+  end
+
   describe '#local_tarball' do
     it 'is the tarball_filename in the Chef file cache path' do
       expect(helper.local_tarball).to eq('/var/chef/cache/pg_repack_5.4.3.tar.gz')
