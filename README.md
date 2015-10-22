@@ -13,8 +13,14 @@ This cookbook installs the pg_repack postgres extension from github
 
 Add the `pg_repack::default` recipe to a node.
 
-This recipe depends on the `pg_config` binary existing in the PATH as
-defined by `node['paths']['bin_path']`.
+```ruby
+pg_repack 'install for postgres 9.4' do
+  postgres_bin_dir '/opt/local/postgres-9.4.5/bin'
+end
+```
+
+If postgres_bin_dir is not set, then a `pg_config` binary existing in the PATH will be used
+to find it. PATH is defined by `node['paths']['bin_path']`.
 
 
 ## Contributing
